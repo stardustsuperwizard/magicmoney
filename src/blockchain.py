@@ -34,12 +34,12 @@ class BlockChain():
         self.construct_genesis()
 
 
-    def construct_gensis(self):
+    def construct_genesis(self):
         # Constructs the initial block
         self.construct_block(proof_no=0, prev_hash=0)
 
 
-    def construct_block(self):
+    def construct_block(self, proof_no, prev_hash):
         # Constructs a new block and adds it to the chain
         block = Block(
             index=len(self.chain),
@@ -95,7 +95,7 @@ class BlockChain():
 
 
     @property
-    def lastest_block(self):
+    def latest_block(self):
         # Returns the last block in the chain
         return self.chain[-1]
 
