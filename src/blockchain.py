@@ -103,7 +103,7 @@ class BlockChain():
     def block_mining(self, details_miner):
         self.new_data(
             sender='0', # Implies that this node has created the block
-            reciever=details_miner,
+            recipient=details_miner,
             quantity=1 # Creating a new block (or identifying the proof number) is awarded with 1
         )
 
