@@ -95,6 +95,42 @@ class BlockChain():
 
 
     @property
-    def last_block(self):
+    def lastest_block(self):
         # Returns the last block in the chain
         return self.chain[-1]
+
+    
+    def block_mining(self, details_miner):
+        self.new_data(
+            sender='0', # Implies that this node has created the block
+            reciever=details_miner,
+            quantity=1 # Creating a new block (or identifying the proof number) is awarded with 1
+        )
+
+        last_block = self.latest_block
+
+        last_proof_no = last_block.proof_no
+        proof_no = self.proof_of_work(last_proof_no)
+
+        last_hash = last_block.calculate_hash
+        block = self.construct_block(proof_no, last_hash)
+        
+        return vars(block)
+
+
+    def create_node(self, address):
+        self.nodes.add(address)
+        return True
+
+
+    @staticmethod
+    def obtain_block_object(block_data):
+        # Obtains block object from the block data
+
+        return Block(
+            block_data['index'],
+            block_data['proof_no'],
+            block_data['prev_hash'],
+            block_data['data'],
+            timestamp=block_data['timestamp']
+        )
