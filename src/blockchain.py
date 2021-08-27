@@ -28,23 +28,44 @@ class Block:
 class BlockChain():
     def __init__(self):
         # Constructor Method
-        pass
+        self.chain = []
+        self.current_data = []
+        self.nodes = set()
+        self.construct_genesis()
 
 
     def construct_gensis(self):
         # Constructs the initial block
-        pass
+        self.construct_block(proof_no=0, prev_hash=0)
 
 
     def construct_block(self):
         # Constructs a new block and adds it to the chain
-        pass
+        block = Block(
+            index=len(self.chain),
+            proof_no=proof_no,
+            prev_hash=prev_hash,
+            data=self.current_data
+        )
+        self.current_data = []
+
+        self.chain.append(block)
+        return block
 
 
     @staticmethod
-    def check_validity():
+    def check_validity(block, prev_block):
         # Checks whether the blockchain is valid
-        pass
+        if prev_block.index + 1 != block.index:
+            return False
+        elif prev_block.calculate_hash != block.prev_hash:
+            return False
+        elif not BlockChain.verifying_proof(block.proof_no, prev_block.proof_no):
+            return False
+        elif block.timestamp <= prev_block.timestamp:
+            return False
+        
+        return True
 
 
     def new_data(self, sender, recipient, quantity):
