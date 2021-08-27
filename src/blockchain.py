@@ -4,14 +4,25 @@ import time
 
 
 class Block:
-    def __init__(self):
-        # First block class
-        pass
-  
-  
-    def calculate_hash():
-        # Calculates the cryptographic hash of every block
-        pass
+    def __init__(self, index, proof_no, prev_hash, data, timestamp=None):
+        # Constructor Method
+        self.index = index
+        self.proof_no = proof_no
+        self.prev_hash = prev_hash
+        self.data = data
+        self.timestamp = timestamp or time.time()
+
+
+    @property
+    def calculate_hash(self):
+        # Constructs the initial block
+        block_of_string = f"{self.index}{self.proof_no}{self.prev_hash}{self.data}{self.timestamp}"
+        return hashlib.sha256(block_of_string.encode()).hexdigest()
+
+
+    def __repr__(self):
+        # Constructs a new block and adds it to the chain
+        return f"{self.index}-{self.proof_no}-{self.prev_hash}-{self.data}-{self.timestamp}"
 
 
 class BlockChain():
