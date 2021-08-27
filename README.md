@@ -1,0 +1,2 @@
+# magicmoney
+My Crypto Currency
