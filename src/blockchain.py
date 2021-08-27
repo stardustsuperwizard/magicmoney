@@ -70,13 +70,28 @@ class BlockChain():
 
     def new_data(self, sender, recipient, quantity):
         # Adds a new transaction to the data of the transactions
-        pass
+        self.current_data.append({
+            'sender': sender,
+            'recipient': recipient,
+            'quantity': quantity
+        })
+        return True
 
     
     @staticmethod
-    def contruct_proof_of_work(prev_proof):
+    def proof_of_work(last_proof):
         # Protects the blockchain from attack
-        pass
+        proof_no = 0
+        while BlockChain.verifying_proof(proof_no, last_proof) is False:
+            proof_no += 1
+        return proof_no
+
+    
+    @staticmethod
+    def verifying_proof(last_proof, proof):
+        guess  = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == '0000'
 
 
     @property
